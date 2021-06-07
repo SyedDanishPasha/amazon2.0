@@ -5,7 +5,7 @@ function CartItem ({ id, item })  {
     
     let options = []
 
-    for (let i = 1; i < Math.max(item.quantity + 1, 20); i++)
+    for (let i = 1; i < Math.max(item.quantity + 1, 30); i++)
     {
         options.push(<option value={ i }> Qty: {i}</option>)
     }
