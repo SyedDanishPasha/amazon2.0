@@ -46,7 +46,7 @@ function Header({cartitems}) {
             <HeaderNavItems>
                 
                 <HeaderOption>
-                    <OptionLineOne>Hello,</OptionLineOne>
+                    <OptionLineOne>Hello, Syed</OptionLineOne>
                     <OptionLineTwo>Accounts & Lists</OptionLineTwo>
                 </HeaderOption>
 

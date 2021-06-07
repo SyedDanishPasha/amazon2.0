@@ -1,8 +1,16 @@
 import React from 'react'
 import styled from 'styled-components'
+import NumberFormat from 'react-number-format';
+import {db} from './firebase'
 
 function CartItem ({ id, item })  {
     
+    const deletItem = (e) =>
+    {
+        e.preventDefault()
+        db.collection('cartitems').doc(id).delete();
+    }
+
     let options = []
 
     for (let i = 1; i < Math.max(item.quantity + 1, 30); i++)
@@ -10,6 +18,13 @@ function CartItem ({ id, item })  {
         options.push(<option value={ i }> Qty: {i}</option>)
     }
     
+    const changeQuantity = (newQuantity) =>
+    {
+        db.collection('cartitems').doc(id).update({
+            quantity: parseInt(newQuantity)
+        })
+    }
+
     return (
         <Container>
             <ItemsContainer>
@@ -23,17 +38,20 @@ function CartItem ({ id, item })  {
                 <InfoBottom>
                     <ItemQuantity>
                         <select
-                            value={item.quantity}
+                            value={ item.quantity }
+                            onChange={(e) => changeQuantity(e.target.value)}
                         >
                             {options}
                         </select>
                     </ItemQuantity>
-                    <ItemDelete>Delete</ItemDelete>
+                    <ItemDelete onClick={deletItem}>
+                        Delete
+                    </ItemDelete>
                 </InfoBottom>
             </InfoContainer>
 
             <ItemPrice>
-                ₹{item.price}
+                <NumberFormat value={item.price} displayType={'text'} thousandSeparator={true} prefix={'₹'}/>
             </ItemPrice>
         </Container>
     )
